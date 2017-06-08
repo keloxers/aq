@@ -24,7 +24,7 @@ class RendicionsController extends Controller
     {
         //
 
-        $rendicions = Rendicion::orderby('id','desc')->paginate(50);
+        $rendicions = Rendicion::orderby('fecha','desc')->orderby('id','desc')->paginate(50);
         $title = "Rendicions";
         return view('rendicions.index', ['rendicions' => $rendicions, 'title' => $title ]);
     }
