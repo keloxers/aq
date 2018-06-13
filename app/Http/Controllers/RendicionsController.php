@@ -282,6 +282,7 @@ class RendicionsController extends Controller
            $movimiento->haber = $haber;
            $movimiento->save();
          }
+         $rendicion->users_id = Auth::user()->id;
          $rendicion->estado = 'cerrada';
          $rendicion->save();
          return redirect('/rendicions');
