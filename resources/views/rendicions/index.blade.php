@@ -36,6 +36,7 @@ use Carbon\Carbon;
 										<thead>
 											<tr>
 												<th>Fecha</th>
+												<th>Usuario</th>
 												<th>Agente</th>
 												<th>Saldo</th>
 												<th>Estado</th>
@@ -48,6 +49,7 @@ use Carbon\Carbon;
 											@foreach ($rendicions as $rendicion)
 											<tr>
 												<td>{{ Carbon::parse($rendicion->fecha)->format('d/m/Y') }}</td>
+												<td>{{ $rendicion->users->name }}</td>
 												<td>{{ $rendicion->agentes->agente }}</td>
 												<td>{{ $rendicion->importe_saldo }}</td>
 												<td>

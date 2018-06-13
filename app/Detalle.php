@@ -10,10 +10,10 @@ class Detalle extends Model
     protected $table = 'detalles';
 
 
-    // public function ciudads()
-    // {
-    //     return $this->belongsTo('App\Ciudad');
-    // }
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     public function agentesjuegos()
         {

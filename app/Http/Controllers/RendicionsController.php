@@ -9,9 +9,11 @@ use App\Rendicion;
 use App\Agente;
 use App\Detalle;
 use Carbon\Carbon;
-
+use App\Cuenta;
+use App\Movimiento;
 use Validator;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Auth;
 
 class RendicionsController extends Controller
 {
@@ -70,6 +72,7 @@ class RendicionsController extends Controller
         $agente = Agente::where('agente', $request->agente)->first();
 
         $rendicion = new rendicion;
+        $rendicion->users_id = Auth::user()->id;
         $rendicion->agentes_id = $agente->id;
         $rendicion->fecha = Carbon::parse($request->fecha)->format('Y/m/d');
         $rendicion->save();
@@ -252,7 +255,34 @@ class RendicionsController extends Controller
      public function cerrar($id)
      {
          //
+         $debe = 0;
+         $haber = 0;
+         $movimientodescripcion='';
+
          $rendicion = Rendicion::find($id);
+         $saldo = $rendicion->importe_saldo;
+
+
+         if ( $saldo > 0 ) {
+           $debe = $saldo;
+           $movimientodescripcion='Deuda por faltante en rendicion';
+         } else {
+           $haber = $saldo * -1;
+           $movimientodescripcion='Sobrante a Favor agente en rendicion';
+         }
+
+         $agente = Agente::find($rendicion->agentes_id);
+         $cuentas_id =$agente->cuentas_id;
+
+
+         $movimiento = new Movimiento;
+         $movimiento->users_id = Auth::user()->id;
+         $movimiento->cuentas_id = $cuentas_id;
+         $movimiento->movimiento = $movimientodescripcion;
+         $movimiento->debe = $debe;
+         $movimiento->haber = $haber;
+         $movimiento->save();
+
          $rendicion->estado = 'cerrada';
          $rendicion->save();
          return redirect('/rendicions');

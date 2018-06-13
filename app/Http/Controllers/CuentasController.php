@@ -171,7 +171,7 @@ class CuentasController extends Controller
 
     public function search(Request $request){
          $term = $request->term;
-         $datos = Cuenta::where('cuenta', 'like', '%'. $request->term . '%')->get();
+         $datos = Cuenta::where('cuenta', 'like', '%'. $request->term . '%')->orderby('cuenta')->get();
          $adevol = array();
          if (count($datos) > 0) {
              foreach ($datos as $dato)

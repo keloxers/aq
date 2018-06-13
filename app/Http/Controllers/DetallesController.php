@@ -13,11 +13,11 @@ use Carbon\Carbon;
 
 use Validator;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Auth;
+
 
 class DetallesController extends Controller
 {
-
-
 
   /**
    * Display the specified resource.
@@ -63,8 +63,7 @@ class DetallesController extends Controller
         $rendicions_id = $id;
 
         $rendicion = Rendicion::find($rendicions_id);
-        $agentesjuegos = Agentesjuego::where('agentes_id', $rendicion->agentes_id)
-                              ->get();
+        $agentesjuegos = Agentesjuego::where('agentes_id', $rendicion->agentes_id)->get();
 
         $title = "Agregar detalles a la Rendicion";
         return view('detalles.create', ['rendicion' => $rendicion, 'agentesjuegos' => $agentesjuegos, 'title' => $title]);
@@ -79,35 +78,13 @@ class DetallesController extends Controller
     public function store(Request $request)
     {
 
-        // echo "entre aca";
-        // die;
-        // $validator = Validator::make($request->all(), [
-        //             'agente' => 'required|exists:agentes,agente|max:75',
-        //
-        // ]);
-        //
-        //
-        // if ($validator->fails()) {
-        //   foreach($validator->messages()->getMessages() as $field_name => $messages) {
-        //     foreach($messages AS $message) {
-        //         $errors[] = $message;
-        //     }
-        //   }
-        //   return redirect()->back()->with('errors', $errors)->withInput();
-        //   die;
-        // }
-
-        // $rendicions_id = $request->1;
-        // echo $rendicions_id;
-
 
         $rendicions_id = $request->rendicions_id;
         Detalle::where('rendicions_id', $rendicions_id)->delete();
 
         $rendicion = Rendicion::find($rendicions_id);
 
-        $agentesjuegos = Agentesjuego::where('agentes_id', $rendicion->agentes_id)
-                              ->get();
+        $agentesjuegos = Agentesjuego::where('agentes_id', $rendicion->agentes_id)->get();
 
         $importe_pagar = 0;
 
@@ -117,6 +94,7 @@ class DetallesController extends Controller
 
                         if (is_numeric($valor)) {
                             $detalle = new Detalle;
+                            $detalle->users_id = Auth::user()->id;
                             $detalle->recaudacion = $valor;
                             $detalle->comision_agente = $valor * $agentesjuego->porcentaje_agente /100;
                             $detalle->comision_agencia = $valor * $agentesjuego->porcentaje_agencia /100;
@@ -128,6 +106,7 @@ class DetallesController extends Controller
                         }
   									}
                     $rendicion = Rendicion::find($request->rendicions_id);
+                    $rendicion->users_id = Auth::user()->id;
                     $rendicion->importe_pagar = $importe_pagar;
                     $rendicion->importe_premios = $request->premios;
                     $rendicion->importe_saldo = $rendicion->importe_pagar - $rendicion->importe_efectivo - $rendicion->importe_premios;
@@ -208,6 +187,7 @@ class DetallesController extends Controller
 
         //
         $rendicion = Rendicion::find($id);
+        $rendicion->users_id = Auth::user()->id;
         $rendicion->rendicion = $request->rendicion;
         $rendicion->ciudads_id = $ciudad->id;
         $rendicion->save();

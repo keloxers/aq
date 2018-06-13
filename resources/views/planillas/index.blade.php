@@ -65,7 +65,22 @@ use Carbon\Carbon;
 												<td></td>
 												<td><div align="right">{{ number_format($debe, 2, '.', '') }}</div></td>
 												<td><div align="right">{{ number_format($haber, 2, '.', '') }}</div></td>
-												<td><div align="right">{{ number_format($saldo, 2, '.', '') }}</div></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td><div align="right">
+													@if($saldo >= 0)
+												<h3><span class="label label-success">{{ number_format($saldo, 2, '.', '') }}</span></h3>
+												@else
+												<h3><span class="label label-danger">{{ number_format($saldo, 2, '.', '') }}</span></h3>
+												@endif
+												</div></td>
 											</tr>
 										</tbody>
 										@endif

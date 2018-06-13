@@ -51,6 +51,7 @@ class AgentesController extends Controller
 
         $validator = Validator::make($request->all(), [
                     'agente' => 'required|unique:agentes|max:75',
+                    'cuentas_id' => 'required|exists:cuentas,id',
 
         ]);
 
@@ -66,6 +67,7 @@ class AgentesController extends Controller
         }
 
         $agente = new agente;
+        $agente->cuentas_id = $request->cuentas_id;
         $agente->agente = $request->agente;
         $agente->maquina = $request->maquina;
         $agente->activo = 'si';
@@ -119,6 +121,7 @@ class AgentesController extends Controller
 
       $validator = Validator::make($request->all(), [
                   'agente' => 'required|unique:agentes,id,'. $request->id . '|max:75',
+                  'cuentas_id' => 'required|exists:cuentas,id',
 
       ]);
 
@@ -134,23 +137,15 @@ class AgentesController extends Controller
       }
 
 
-        // $ciudad = Ciudad::where('ciudad', $request->ciudad)->first();
-
-
-        //
         $agente = Agente::find($id);
+        $agente->cuentas_id = $request->cuentas_id;
         $agente->agente = $request->agente;
         $agente->maquina = $request->maquina;
         $agente->save();
         return redirect('/agentes');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //
@@ -160,21 +155,12 @@ class AgentesController extends Controller
         return redirect('/agentes');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function finder(Request $request)
     {
-        //
-
         $agentes = Agente::where('agente', 'like', '%'. $request->buscar . '%')->orderby('agente')->paginate(15);
         $title = "Agente: buscando " . $request->buscar;
         return view('agentes.index', ['agentes' => $agentes, 'title' => $title ]);
-
-
     }
 
 

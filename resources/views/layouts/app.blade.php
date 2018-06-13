@@ -125,9 +125,6 @@
     		    <!-- Left Sidebar Start -->
             @if (!Auth::guest())
 
-
-
-
             <div class="left side-menu">
                 <div class="sidebar-inner slimscrollleft">
 
@@ -140,16 +137,7 @@
 
                     <div id="sidebar-menu">
                         <ul>
-                          <li><a href='/'>
-                            <i class='icon-home-3'></i>
-                              <span>Home</span>
-                              <span class="pull-right">
-                              </a>
-                          </li>
-
-
-
-
+                            @if (Auth::user()->tipo > 1)
                             <li class='has_sub'>
                                   <a href='javascript:void(0);'>
                                       <i class='fa fa-cogs'></i>
@@ -174,13 +162,15 @@
                                   </ul>
                               </li>
                             </ul>
+                            </li>
+                            @endif
+                            @if (Auth::user()->tipo > 1)
                             <li><a href='/rendicions'>
                               <i class='glyphicon glyphicon-shopping-cart'></i>
                                 <span>Rendicion</span>
                                 <span class="pull-right">
                                 </a>
                             </li>
-
                             <li><a href='/planillas'>
                               <i class='glyphicon glyphicon-list-alt'></i>
                                 <span>Planillas</span>
@@ -199,7 +189,7 @@
                                 <span class="pull-right">
                                 </a>
                             </li>
-
+                            @endif
 
 
 
@@ -211,7 +201,7 @@
                 <br><br><br>
             </div>
             </div>
-                        @endif
+            @endif
             <!-- Left Sidebar End -->		    <!-- Right Sidebar Start -->
 
     		<!-- Start right content -->

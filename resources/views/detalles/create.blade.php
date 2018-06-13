@@ -37,7 +37,7 @@
 																	<div class="form-group">
 																		<label for="input-text" class="col-sm-2 control-label">{{ $agentesjuego->juegos->juego }}</label>
 																			<div class="col-sm-3">
-																				<input id="{{ $agentesjuego->juegos->juego }}" name="{{ $agentesjuego->juegos->juego }}" class="form-control input-lg" placeholder="" type="text" value="">
+																				<input id="{{ $agentesjuego->juegos->juego }}" name="{{ $agentesjuego->juegos->juego }}" class="form-control input-lg" placeholder="" type="text" value="0">
 																			</div>
 																	</div>
 															@endforeach
@@ -45,7 +45,7 @@
 									<div class="form-group">
 										<label for="input-text" class="col-sm-2 control-label">Premios</label>
 											<div class="col-sm-3">
-												<input id="premios" name="premios" class="form-control input-lg" placeholder="Premios a descontar" type="text" value="">
+												<input id="premios" name="premios" class="form-control input-lg" placeholder="Premios a descontar" type="text" value="0">
 											</div>
 									</div>
 

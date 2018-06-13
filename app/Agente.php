@@ -25,5 +25,10 @@ class Agente extends Model
             return $this->hasMany('App\Rendicion');
         }
 
+        public function cuentas()
+        {
+            return $this->belongsTo('App\Cuenta');
+        }
+
 
 }

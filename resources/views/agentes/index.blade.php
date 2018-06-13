@@ -35,6 +35,7 @@
 											<tr>
 												<th>Agente</th>
 												<th>Maquina</th>
+												<th>Cuenta Asociada</th>
 												<th>Activo</th>
 												<th>Acción</th>
 											</tr>
@@ -46,6 +47,7 @@
 											<tr>
 												<td>{{ $agente->agente }}</td>
 												<td>{{ $agente->maquina }}</td>
+												<td>{{ $agente->cuentas->cuenta }}</td>
 												<td>{{ $agente->activo }}</td>
 												<td>
 													<a href='/agentes/{{ $agente->id }}/edit'>

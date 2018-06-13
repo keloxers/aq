@@ -29,17 +29,15 @@
 										<div class="col-md-4">
 										</div>
 										<div class="col-md-8">
-											@if ($rendicion->importe_saldo==0 and $rendicion->importe_pagar > 0)
+											@if ($rendicion->importe_pagar > 0)
 												<div class="toolbar-btn-action">
 													<a href="/rendicions/{{ $rendicion->id }}/cerrar" class="btn btn-danger"> Cerrar</a>
+													<a href="/detalles/{{ $rendicion->id }}/create" class="btn btn-success"><i class="fa fa-plus-circle"></i> Re Cargar</a>
+
 												</div>
 											@else
-											<div class="toolbar-btn-action">
-												@if ($rendicion->importe_pagar == 0)
+												<div class="toolbar-btn-action">
 													<a href="/detalles/{{ $rendicion->id }}/create" class="btn btn-success"><i class="fa fa-plus-circle"></i> Nuevo</a>
-												@else
-													<a href="/detalles/{{ $rendicion->id }}/create" class="btn btn-success"><i class="fa fa-plus-circle"></i> Re Cargar</a>
-												@endif
 											</div>
 											@endif
 										</div>
@@ -54,6 +52,7 @@
 												<th>Juego</th>
 												<th>Recaudacion</th>
 												<th>a Pagar</th>
+												<th>Cargo</th>
 											</tr>
 										</thead>
 
@@ -69,6 +68,7 @@
 												<td>{{ $detalle->agentesjuegos->juegos->juego }}</td>
 												<td>{{ $detalle->recaudacion }}</td>
 												<td>{{ $detalle->importe_apagar }}</td>
+												<td>{{ $detalle->users->name }}</td>
 											</tr>
 											<?php
 													$apagar +=$detalle->importe_apagar;
