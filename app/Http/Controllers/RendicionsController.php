@@ -266,23 +266,22 @@ class RendicionsController extends Controller
          if ( $saldo > 0 ) {
            $debe = $saldo;
            $movimientodescripcion='Deuda por faltante en rendicion';
-         } else {
+         } elseif ( $saldo < 0 ) {
            $haber = $saldo * -1;
            $movimientodescripcion='Sobrante a Favor agente en rendicion';
          }
 
-         $agente = Agente::find($rendicion->agentes_id);
-         $cuentas_id =$agente->cuentas_id;
-
-
-         $movimiento = new Movimiento;
-         $movimiento->users_id = Auth::user()->id;
-         $movimiento->cuentas_id = $cuentas_id;
-         $movimiento->movimiento = $movimientodescripcion;
-         $movimiento->debe = $debe;
-         $movimiento->haber = $haber;
-         $movimiento->save();
-
+         if ( $saldo <> 0 ) {
+           $agente = Agente::find($rendicion->agentes_id);
+           $cuentas_id =$agente->cuentas_id;
+           $movimiento = new Movimiento;
+           $movimiento->users_id = Auth::user()->id;
+           $movimiento->cuentas_id = $cuentas_id;
+           $movimiento->movimiento = $movimientodescripcion;
+           $movimiento->debe = $debe;
+           $movimiento->haber = $haber;
+           $movimiento->save();
+         }
          $rendicion->estado = 'cerrada';
          $rendicion->save();
          return redirect('/rendicions');
