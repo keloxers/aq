@@ -36,6 +36,7 @@ use Carbon\Carbon;
 										<thead>
 											<tr>
 												<th>Fecha</th>
+												<th>Usuario</th>
 												<th>Movimiento descripcion</th>
 												<th>Cuenta</th>
 												<th>Debe</th>
@@ -48,6 +49,7 @@ use Carbon\Carbon;
 											@foreach ($movimientos as $movimiento)
 											<tr>
 												<td>{{ Carbon::parse($movimiento->created_at)->format('d/m/Y') }}</td>
+												<td>{{ $movimiento->users->name }}</td>
 												<td>{{ $movimiento->movimiento }}</td>
 												<td>{{ $movimiento->cuentas->cuenta }}</td>
 												<td>{{ $movimiento->debe }}</td>

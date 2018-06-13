@@ -14,11 +14,10 @@ class Movimiento extends Model
     {
         return $this->belongsTo('App\Cuenta');
     }
-    //
-    // public function agentesjuegos()
-    //     {
-    //         return $this->hasMany('App\Agentesjuego');
-    //     }
 
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
 
 }

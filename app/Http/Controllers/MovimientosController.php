@@ -10,6 +10,7 @@ use App\Movimiento;
 
 use Validator;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Support\Facades\Auth;
 
 class MovimientosController extends Controller
 {
@@ -22,7 +23,7 @@ class MovimientosController extends Controller
     {
         //
 
-        $movimientos = Movimiento::orderby('id')->paginate(25);
+        $movimientos = Movimiento::orderby('id','desc')->paginate(25);
         $title = "movimientos";
         return view('movimientos.index', ['movimientos' => $movimientos, 'title' => $title ]);
     }
@@ -67,8 +68,9 @@ class MovimientosController extends Controller
         }
 
         $movimiento = new Movimiento;
-        $movimiento->movimiento = $request->movimiento;
+        $movimiento->users_id = Auth::user()->id;
         $movimiento->cuentas_id = $request->cuentas_id;
+        $movimiento->movimiento = $request->movimiento;
         $movimiento->debe = $request->debe;
         $movimiento->haber = $request->haber;
         $movimiento->save();
