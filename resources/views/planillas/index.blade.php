@@ -16,70 +16,59 @@ use Carbon\Carbon;
 								</div>
 							</div>
 							<div class="widget-content">
-								<div class="data-table-toolbar">
-									<div class="row">
-										<div class="col-md-4">
-											{{ Form::open(array('route' => 'planillas.finder')) }}
-											<input type="text" id="buscar" name="buscar" class="form-control" placeholder="Buscar...">
-											{{ Form::close() }}
-										</div>
-										<div class="col-md-8">
-											<div class="toolbar-btn-action">
-												<a href="/planillas/create" class="btn btn-success"><i class="fa fa-plus-circle"></i> Nuevo</a>
-											</div>
-										</div>
-									</div>
-								</div>
+
+								<?php
+									$debe=0;
+									$haber=0;
+									$saldo=0;
+								?>
+
 
 								<div class="table-responsive">
 									<table data-sortable class="table table-hover table-striped">
 										<thead>
 											<tr>
-												<th>Fecha</th>
-												<th>Debe</th>
-												<th>Haber</th>
-												<th>Saldo</th>
-												<th>Estado</th>
-												<th>Acción</th>
+												<th><div align="center">Fecha</div></th>
+												<th><div align="center">Cuenta</div></th>
+												<th><div align="center">Movimiento</div></th>
+												<th><div align="center">Debe</div></th>
+												<th><div align="center">Haber</div></th>
+												<th><div align="center">Saldo</div></th>
 											</tr>
 										</thead>
 
 										<tbody>
-											@if ($planillas)
-											@foreach ($planillas as $planilla)
+											@if ($movimientos)
+											@foreach ($movimientos as $movimiento)
 											<tr>
-												<td>{{ Carbon::parse($planilla->fecha)->format('d/m/Y') }}</td>
-												<td>{{ $planilla->debe }}</td>
-												<td>{{ $planilla->haber }}</td>
-												<td>{{ $planilla->saldo }}</td>
-												<td>{{ $planilla->estado }}</td>
-												<td>
-													@if($planilla->estado=='abierta')
-													<span class="label label-success">{{ $planilla->estado }}</span>
-													@else
-													<span class="label label-danger">{{ $planilla->estado }}</span>
-													@endif
-												</td>
-												<td>
-
-													<a href='/detalles/{{ $planilla->id }}/detalles'>
-														@if($planilla->estado=='abierta')
-														<span class="label label-primary">Editar</span>
-														@else
-														<span class="label label-primary">Ver</span>
-														@endif
-													</a>
-												</td>
+												<td>{{ Carbon::parse($movimiento->created_at)->format('d/m/Y') }}</td>
+												<td>{{ $movimiento->cuentas->cuenta }}</td>
+												<td>{{ $movimiento->movimiento }}</td>
+												<td><div align="right">{{ $movimiento->debe }}</div></td>
+												<td><div align="right">{{ $movimiento->haber }}</div></td>
+												<td></td>
+												<?php
+												$debe +=$movimiento->debe;
+												$haber +=$movimiento->haber;
+												 ?>
 											</tr>
 											@endforeach
+											<?php
+												$saldo = $haber - $debe;
+											 ?>
+											<tr>
+												<td></td>
+												<td></td>
+												<td></td>
+												<td><div align="right">{{ number_format($debe, 2, '.', '') }}</div></td>
+												<td><div align="right">{{ number_format($haber, 2, '.', '') }}</div></td>
+												<td><div align="right">{{ number_format($saldo, 2, '.', '') }}</div></td>
+											</tr>
 										</tbody>
 										@endif
 									</table>
 								</div>
 
-								<div class="data-table-toolbar">
-									{{ $planillas->links() }}
-								</div>
 							</div>
 						</div>
 					</div>

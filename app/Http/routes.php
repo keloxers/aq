@@ -57,11 +57,19 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get( '/cuentas/search', array('as' => 'cuentas.search', 'uses' => 'CuentasController@search'));
     Route::resource('cuentas', 'CuentasController');
 
-
-
     Route::post('/planillas/finder', [ 'as' => 'planillas.finder', 'uses' => 'PlanillasController@finder']);
     Route::get( '/planillas/{id}/cerrar', array('as' => 'planillas.cerrar', 'uses' => 'PlanillasController@cerrar'));
-    Route::resource('planillas', 'PlanillasController');
+    Route::get( '/planillas', array('as' => 'planillas.indexshow', 'uses' => 'PlanillasController@indexshow'));
+    Route::post('/planillas/view', [ 'as' => 'planillas.view', 'uses' => 'PlanillasController@view']);
+
+    Route::get( '/estadoscuenta', array('as' => 'planillas.estadoscuenta', 'uses' => 'PlanillasController@estadoscuenta'));
+    Route::post( '/estadoscuenta', array('as' => 'planillas.estadoscuentashow', 'uses' => 'PlanillasController@estadoscuentashow'));
+
+
+    Route::post('/movimientos/finder', [ 'as' => 'movimientos.finder', 'uses' => 'MovimientosController@finder']);
+
+
+    Route::resource('movimientos', 'MovimientosController');
 
 
 

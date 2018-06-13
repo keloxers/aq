@@ -187,6 +187,20 @@
                                 <span class="pull-right">
                                 </a>
                             </li>
+                            <li><a href='/movimientos'>
+                              <i class='glyphicon glyphicon-list-alt'></i>
+                                <span>Movimientos</span>
+                                <span class="pull-right">
+                                </a>
+                            </li>
+                            <li><a href='/estadoscuenta'>
+                              <i class='glyphicon glyphicon-list-alt'></i>
+                                <span>Estado de cuenta</span>
+                                <span class="pull-right">
+                                </a>
+                            </li>
+
+
 
 
                             <div class="clearfix"></div>
