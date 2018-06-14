@@ -137,7 +137,7 @@
 
                     <div id="sidebar-menu">
                         <ul>
-                            @if (Auth::user()->tipo > 1)
+                            @if (Auth::user()->tipo >= 2)
                             <li class='has_sub'>
                                   <a href='javascript:void(0);'>
                                       <i class='fa fa-cogs'></i>
@@ -164,7 +164,7 @@
                             </ul>
                             </li>
                             @endif
-                            @if (Auth::user()->tipo > 1)
+                            @if (Auth::user()->tipo >= 1)
                             <li><a href='/rendicions'>
                               <i class='glyphicon glyphicon-shopping-cart'></i>
                                 <span>Rendicion</span>
