@@ -166,7 +166,7 @@
                             @endif
                             @if (Auth::user()->tipo >= 1)
                             <li><a href='/rendicions'>
-                              <i class='glyphicon glyphicon-shopping-cart'></i>
+                              <i class='fa fa-money'></i>
                                 <span>Rendicion</span>
                                 <span class="pull-right">
                                 </a>
@@ -178,13 +178,13 @@
                                 </a>
                             </li>
                             <li><a href='/movimientos'>
-                              <i class='glyphicon glyphicon-list-alt'></i>
+                              <i class='fa fa-refresh'></i>
                                 <span>Movimientos</span>
                                 <span class="pull-right">
                                 </a>
                             </li>
                             <li><a href='/estadoscuenta'>
-                              <i class='glyphicon glyphicon-list-alt'></i>
+                              <i class='fa fa-briefcase'></i>
                                 <span>Estado de cuenta</span>
                                 <span class="pull-right">
                                 </a>
