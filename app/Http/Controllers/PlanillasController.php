@@ -50,7 +50,7 @@ class PlanillasController extends Controller
 
         $fecha = Carbon::parse($request->fecha)->format('Y/m/d');
 
-        $movimientos = Movimiento::whereDate('created_at', '=', $fecha)->orderby('id','asc')->get();
+        $movimientos = Movimiento::whereDate('created_at', '=', $fecha)->where('enplanilla','=',1)->orderby('id','asc')->get();
         $title = "Movimientos: " .  $request->fecha;
         return view('planillas.index', ['movimientos' => $movimientos, 'title' => $title ]);
 

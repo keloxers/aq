@@ -280,6 +280,7 @@ class RendicionsController extends Controller
            $movimiento->movimiento = $movimientodescripcion;
            $movimiento->debe = $debe;
            $movimiento->haber = $haber;
+           $movimiento->enplanilla = 0;
            $movimiento->save();
          }
          $rendicion->users_id = Auth::user()->id;
