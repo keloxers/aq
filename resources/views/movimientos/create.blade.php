@@ -39,7 +39,7 @@
 										</div>
 										<div class="form-group">
 											<label for="input-text" class="col-sm-2 control-label">Cuenta</label>
-												<div class="col-sm-6">
+												<div class="col-sm-4">
 													{{ Form::text('cuenta', '', array('id' => 'cuenta', 'name' => 'cuenta', 'class' => 'form-control input-lg', 'placeholder' => 'Ingrese una cuenta')) }}
 													{{ Form::hidden('cuentas_id', '', array('id' => 'cuentas_id', 'name' => 'cuentas_id')) }}
 												</div>
@@ -49,6 +49,14 @@
 												<div class="col-sm-2">
 													{{ Form::text('haber', '0', array('id' => 'haber', 'name' => 'haber', 'class' => 'form-control input-lg', 'placeholder' => 'Pesos haber')) }}
 												</div>
+												@if (Auth::user()->tipo >= 1)
+	                      <div class="col-sm-2">
+	                        <input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="enplanilla" id="enplanilla" checked/><br>
+													en planilla
+	                      </div>
+												@endif
+
+
 										</div>
 
 										</div>

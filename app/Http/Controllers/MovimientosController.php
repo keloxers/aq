@@ -49,6 +49,11 @@ class MovimientosController extends Controller
     public function store(Request $request)
     {
 
+        $enplanilla=1;
+        if($request->enplanilla=="") {
+          $enplanilla=0;
+        };
+
         $validator = Validator::make($request->all(), [
                     'cuentas_id' => 'required|exists:cuentas,id',
                     'debe' => 'required|numeric',
@@ -73,6 +78,7 @@ class MovimientosController extends Controller
         $movimiento->movimiento = $request->movimiento;
         $movimiento->debe = $request->debe;
         $movimiento->haber = $request->haber;
+        $movimiento->enplanilla = $enplanilla;
         $movimiento->save();
         return redirect('/movimientos');
     }
@@ -121,8 +127,15 @@ class MovimientosController extends Controller
     public function update(Request $request, $id)
     {
 
+      $enplanilla=1;
+      if($request->enplanilla=="") {
+        $enplanilla=0;
+      };
+
       $validator = Validator::make($request->all(), [
-                  'movimiento' => 'required|unique:movimientos,id,'. $request->id . '|max:75',
+                  'cuentas_id' => 'required|exists:cuentas,id',
+                  'debe' => 'required|numeric',
+                  'haber' => 'required|numeric',
 
       ]);
 
@@ -137,11 +150,16 @@ class MovimientosController extends Controller
         die;
       }
 
+      $movimiento = Movimiento::find($id);
+      $movimiento->users_id = Auth::user()->id;
+      $movimiento->cuentas_id = $request->cuentas_id;
+      $movimiento->movimiento = $request->movimiento;
+      $movimiento->debe = $request->debe;
+      $movimiento->haber = $request->haber;
+      $movimiento->enplanilla = $enplanilla;
+      $movimiento->save();
+      return redirect('/movimientos');
 
-        $movimiento = Movimiento::find($id);
-        $movimiento->movimiento = $request->movimiento;
-        $movimiento->save();
-        return redirect('/movimientos');
     }
 
     /**

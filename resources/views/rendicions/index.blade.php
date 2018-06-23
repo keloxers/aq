@@ -55,8 +55,22 @@ use Carbon\Carbon;
 												<td>
 													@if($rendicion->estado=='abierta')
 													<span class="label label-success">{{ $rendicion->estado }}</span>
+													@elseif ($rendicion->estado=='cerrada')
+															@if (Auth::user()->tipo >= 1)
+																<a href='/rendicions/{{ $rendicion->id }}/controlada'>
+															@endif
+															<span class="label label-danger">{{ $rendicion->estado }}</span>
+															@if (Auth::user()->tipo >= 1)
+															</a>
+															@endif
 													@else
-													<span class="label label-danger">{{ $rendicion->estado }}</span>
+															@if (Auth::user()->tipo >= 1)
+																<a href='/rendicions/{{ $rendicion->id }}/cerrada'>
+															@endif
+															<span class="label label-info">{{ $rendicion->estado }}</span>
+															@if (Auth::user()->tipo >= 1)
+															</a>
+															@endif
 													@endif
 												</td>
 												<td>

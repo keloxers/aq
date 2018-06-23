@@ -290,7 +290,21 @@ class RendicionsController extends Controller
      }
 
 
+     public function cerrada($id)
+     {
+         $rendicion = Rendicion::find($id);
+         $rendicion->estado = 'cerrada';
+         $rendicion->save();
+         return redirect('/rendicions');
+     }
 
+     public function controlada($id)
+     {
+         $rendicion = Rendicion::find($id);
+         $rendicion->estado = 'controlada';
+         $rendicion->save();
+         return redirect('/rendicions');
+     }
 
 
 

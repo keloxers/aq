@@ -41,6 +41,7 @@ use Carbon\Carbon;
 												<th>Cuenta</th>
 												<th>Debe</th>
 												<th>Haber</th>
+												<th>Planilla</th>
 											</tr>
 										</thead>
 
@@ -50,10 +51,28 @@ use Carbon\Carbon;
 											<tr>
 												<td>{{ Carbon::parse($movimiento->created_at)->format('d/m/Y') }}</td>
 												<td>{{ $movimiento->users->name }}</td>
-												<td>{{ $movimiento->movimiento }}</td>
+												<td>
+													@if (Auth::user()->tipo >= 1)
+													<a href='/movimientos/{{ $movimiento->id }}/edit'>
+													@endif
+
+															{{ $movimiento->movimiento }}
+
+													@if (Auth::user()->tipo >= 1)
+														</a>
+													@endif
+												</td>
 												<td>{{ $movimiento->cuentas->cuenta }}</td>
 												<td>{{ $movimiento->debe }}</td>
 												<td>{{ $movimiento->haber }}</td>
+												<td>
+
+												@if ($movimiento->enplanilla==0)
+														<span class="label label-info"> No </span>
+													@else
+														<span class="label label-success"> Si </span>
+												@endif
+												</td>
 											</tr>
 											@endforeach
 										</tbody>

@@ -44,6 +44,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get( '/rendicions/search', array('as' => 'rendicions.search', 'uses' => 'RendicionsController@search'));
     Route::post( '/rendicions/storepagos', array('as' => 'rendicions.storepagos', 'uses' => 'RendicionsController@storepagos'));
     Route::get( '/rendicions/{id}/cerrar', array('as' => 'rendicions.cerrar', 'uses' => 'RendicionsController@cerrar'));
+    Route::get( '/rendicions/{id}/cerrada', array('as' => 'rendicions.cerrada', 'uses' => 'RendicionsController@cerrada'));        
+    Route::get( '/rendicions/{id}/controlada', array('as' => 'rendicions.controlada', 'uses' => 'RendicionsController@controlada'));
     Route::resource('rendicions', 'RendicionsController');
 
     Route::get( '/detalles/{id}/detalles', array('as' => 'detalles.detalles', 'uses' => 'DetallesController@detalles'));
