@@ -56,19 +56,19 @@ use Carbon\Carbon;
 													@if($rendicion->estado=='abierta')
 													<span class="label label-success">{{ $rendicion->estado }}</span>
 													@elseif ($rendicion->estado=='cerrada')
-															@if (Auth::user()->tipo >= 1)
+															@if (Auth::user()->tipo >= 2)
 																<a href='/rendicions/{{ $rendicion->id }}/controlada'>
 															@endif
 															<span class="label label-danger">{{ $rendicion->estado }}</span>
-															@if (Auth::user()->tipo >= 1)
+															@if (Auth::user()->tipo >= 2)
 															</a>
 															@endif
 													@else
-															@if (Auth::user()->tipo >= 1)
+															@if (Auth::user()->tipo >= 2)
 																<a href='/rendicions/{{ $rendicion->id }}/cerrada'>
 															@endif
 															<span class="label label-info">{{ $rendicion->estado }}</span>
-															@if (Auth::user()->tipo >= 1)
+															@if (Auth::user()->tipo >= 2)
 															</a>
 															@endif
 													@endif

@@ -165,6 +165,12 @@
                             </li>
                             @endif
                             @if (Auth::user()->tipo >= 1)
+                            <li><a href='/articulos'>
+                              <i class='fa fa-money'></i>
+                                <span>Articulos</span>
+                                <span class="pull-right">
+                                </a>
+                            </li>
                             <li><a href='/rendicions'>
                               <i class='fa fa-money'></i>
                                 <span>Rendicion</span>

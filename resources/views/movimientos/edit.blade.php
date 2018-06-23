@@ -60,7 +60,7 @@
 											<div class="col-sm-2">
 												{{ Form::text('haber', $movimiento->haber, array('id' => 'haber', 'name' => 'haber', 'class' => 'form-control input-lg', 'placeholder' => 'Pesos haber')) }}
 											</div>
-											@if (Auth::user()->tipo >= 1)
+											@if (Auth::user()->tipo >= 2)
 											<div class="col-sm-2">
 												<input type="checkbox" class="ios-switch ios-switch-success ios-switch-sm" name="enplanilla" id="enplanilla"
 												@if($movimiento->enplanilla)
