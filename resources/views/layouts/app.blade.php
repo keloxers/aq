@@ -166,7 +166,7 @@
                             @endif
                             @if (Auth::user()->tipo >= 1)
                             <li><a href='/articulos'>
-                              <i class='fa fa-money'></i>
+                              <i class='icon-basket-1'></i>
                                 <span>Articulos</span>
                                 <span class="pull-right">
                                 </a>
