@@ -19,9 +19,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'HomeController@index');
 
 
-    Route::post('/ciudads/finder', [ 'as' => 'ciudads.finder', 'uses' => 'CiudadsController@finder']);
-    Route::get( '/ciudads/search', array('as' => 'ciudads.search', 'uses' => 'CiudadsController@search'));
-    Route::resource('ciudads', 'CiudadsController');
+    Route::post('/articulos/finder', [ 'as' => 'articulos.finder', 'uses' => 'ArticulosController@finder']);
+    Route::get( '/articulos/search', array('as' => 'articulos.search', 'uses' => 'ArticulosController@search'));
+    Route::resource('articulos', 'ArticulosController');
+
+    Route::get( '/articulosmovimientos', array('as' => 'articulos.articulosmovimientos', 'uses' => 'ArticulosController@articulosmovimientos'));
+    Route::post( '/articulos/articulosmovimientosstore', array('as' => 'articulos.articulosmovimientosstore', 'uses' => 'ArticulosController@articulosmovimientosstore'));
 
     Route::post('/barrios/finder', [ 'as' => 'barrios.finder', 'uses' => 'BarriosController@finder']);
     Route::get( '/barrios/search', array('as' => 'barrios.search', 'uses' => 'BarriosController@search'));
@@ -44,7 +47,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get( '/rendicions/search', array('as' => 'rendicions.search', 'uses' => 'RendicionsController@search'));
     Route::post( '/rendicions/storepagos', array('as' => 'rendicions.storepagos', 'uses' => 'RendicionsController@storepagos'));
     Route::get( '/rendicions/{id}/cerrar', array('as' => 'rendicions.cerrar', 'uses' => 'RendicionsController@cerrar'));
-    Route::get( '/rendicions/{id}/cerrada', array('as' => 'rendicions.cerrada', 'uses' => 'RendicionsController@cerrada'));        
+    Route::get( '/rendicions/{id}/cerrada', array('as' => 'rendicions.cerrada', 'uses' => 'RendicionsController@cerrada'));
     Route::get( '/rendicions/{id}/controlada', array('as' => 'rendicions.controlada', 'uses' => 'RendicionsController@controlada'));
     Route::resource('rendicions', 'RendicionsController');
 

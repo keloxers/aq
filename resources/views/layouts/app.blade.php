@@ -156,6 +156,7 @@
                                       </span>
                                   </a>
                                   <ul>
+                                    <li><a href='/articulos'><span>Articulos</span></a></li>
                                     <li><a href='/agentes'><span>Agentes</span></a></li>
                                     <li><a href='/cuentas'><span>Cuentas</span></a></li>
                                     <li><a href='/juegos'><span>Juegos</span></a></li>
@@ -165,9 +166,9 @@
                             </li>
                             @endif
                             @if (Auth::user()->tipo >= 1)
-                            <li><a href='/articulos'>
+                            <li><a href='/articulosmovimientos'>
                               <i class='icon-basket-1'></i>
-                                <span>Articulos</span>
+                                <span>Articulos movimientos</span>
                                 <span class="pull-right">
                                 </a>
                             </li>
