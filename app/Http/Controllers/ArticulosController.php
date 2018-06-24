@@ -251,8 +251,17 @@ class ArticulosController extends Controller
 
              $movimiento = new Movimiento;
              $movimiento->users_id = Auth::user()->id;
-             $movimiento->cuentas_id = $articulo->cuentas_id;
+             $movimiento->cuentas_id = $agente->cuentas_id;
              $movimiento->movimiento = $request->cantidad . ' unidades de  ' . $articulo->articulo;
+             $movimiento->debe = $debe;
+             $movimiento->haber = 0;
+             $movimiento->enplanilla = 0;
+             $movimiento->save();
+
+             $movimiento = new Movimiento;
+             $movimiento->users_id = Auth::user()->id;
+             $movimiento->cuentas_id = $articulo->cuentas_id;
+             $movimiento->movimiento = $request->cantidad . ' unidades de  ' . $articulo->articulo . ', ' . $agente->agente;
              $movimiento->debe = $debe;
              $movimiento->haber = 0;
              $movimiento->enplanilla = 0;
