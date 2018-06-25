@@ -45,7 +45,17 @@ use Carbon\Carbon;
 												<td>{{ Carbon::parse($movimiento->created_at)->format('d/m/Y') }}</td>
 												<td>{{ $movimiento->users->name }}</td>
 												<td>{{ $movimiento->cuentas->cuenta }}</td>
-												<td>{{ $movimiento->movimiento }}</td>
+												<td>
+													@if (Auth::user()->tipo >= 2)
+													<a href='/movimientos/{{ $movimiento->id }}/edit'>
+													@endif
+
+															{{ $movimiento->movimiento }}
+
+													@if (Auth::user()->tipo >= 2)
+														</a>
+													@endif
+												</td>
 												<td><div align="right">{{ $movimiento->debe }}</div></td>
 												<td><div align="right">{{ $movimiento->haber }}</div></td>
 												<td></td>

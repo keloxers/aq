@@ -7,7 +7,7 @@ use Illuminate\Support\MessageBag;
 use App\Http\Requests;
 use App\Cuenta;
 use App\Movimiento;
-
+use Carbon\Carbon;
 use Validator;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Illuminate\Support\Facades\Auth;
@@ -157,6 +157,7 @@ class MovimientosController extends Controller
       $movimiento->debe = $request->debe;
       $movimiento->haber = $request->haber;
       $movimiento->enplanilla = $enplanilla;
+      $movimiento->created_at = strtotime($request->fecha);
       $movimiento->save();
       return redirect('/movimientos');
 
