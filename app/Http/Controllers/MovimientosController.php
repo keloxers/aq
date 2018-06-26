@@ -50,9 +50,12 @@ class MovimientosController extends Controller
     {
 
         $enplanilla=1;
-        if($request->enplanilla=="") {
-          $enplanilla=0;
-        };
+
+        if (Auth::user()->enplanilla) {
+          if($request->enplanilla=="") {
+            $enplanilla=0;
+          };          
+        }
 
         $validator = Validator::make($request->all(), [
                     'cuentas_id' => 'required|exists:cuentas,id',
