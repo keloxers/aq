@@ -28,6 +28,13 @@
 									</div>
 							@endif
 
+							<?php
+									$fecha = Carbon\Carbon::now();
+							 ?>
+
+
+
+
 							<div class="widget-content">
 
 								<div class="widget-content padding">
@@ -37,7 +44,7 @@
 											<div class="form-group">
 													<label class="col-sm-2 control-label">Fecha rendicion</label>
 													<div class="col-sm-3">
-													  <input type="text" id="fecha" name="fecha" class="form-control datepicker-input">
+													  <input type="text" id="fecha" name="fecha" class="form-control datepicker-input" value="{{$fecha->format('m/j/Y')}}">
 													</div>
 												</div>
 
