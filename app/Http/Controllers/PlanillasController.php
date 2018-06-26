@@ -58,8 +58,6 @@ class PlanillasController extends Controller
 
     public function estadoscuenta()
     {
-
-
         $title = "Ver Cuenta";
         return view('planillas.estadoscuenta', ['title' => $title ]);
     }
@@ -104,6 +102,13 @@ class PlanillasController extends Controller
 
 
 
+    public function todasdeudas()
+    {
+        $cuentas = Cuenta::Orderby('cuenta')->get();
+
+        $title = "Ver Cuenta";
+        return view('planillas.todasdeudas', ['cuentas' => $cuentas, 'title' => $title ]);
+    }
 
 
 

@@ -11,7 +11,7 @@
 					<div class="col-md-12">
 						<div class="widget">
 							<div class="widget-header transparent">
-								<h2><a href="/rendicions"><i class="icon-left"></i></a> <strong>{{ $title}}</h2>
+								<h2><a href="/"><i class="icon-left"></i></a> <strong>{{ $title}}</h2>
 								<div class="additional-btn">
 									<a href="/rendicions" class="hidden reload"><i class="icon-ccw-1"></i></a>
 									<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
@@ -63,6 +63,44 @@
 					</div>
 
 				</div>
+
+
+				<div class="row">
+									<div class="col-md-12">
+										<div class="widget">
+											<div class="widget-header transparent">
+												<h2><a href="/"><i class="icon-left"></i></a> <strong>Ver todas las cuentas</h2>
+												<div class="additional-btn">
+													<a href="/rendicions" class="hidden reload"><i class="icon-ccw-1"></i></a>
+													<a href="#" class="widget-toggle"><i class="icon-down-open-2"></i></a>
+													<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
+												</div>
+											</div>
+
+											<div class="widget-content">
+
+												<div class="widget-content padding">
+
+													<div class="row">
+
+														<div class="col-md-2">
+															<div class="toolbar-btn-action">
+																<a href="/estadoscuenta/todasdeudas" class="btn btn-success"> Ver todas las deudas </a>
+															</div>
+														</div>
+													</div>
+
+
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+
+								</div>
+
+
 
 				<script>
 					var jq = jQuery.noConflict();

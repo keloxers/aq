@@ -70,6 +70,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get( '/estadoscuenta', array('as' => 'planillas.estadoscuenta', 'uses' => 'PlanillasController@estadoscuenta'));
     Route::post( '/estadoscuenta', array('as' => 'planillas.estadoscuentashow', 'uses' => 'PlanillasController@estadoscuentashow'));
 
+    Route::get( '/estadoscuenta/todasdeudas', array('as' => 'planillas.todasdeudas', 'uses' => 'PlanillasController@todasdeudas'));
 
     Route::post('/movimientos/finder', [ 'as' => 'movimientos.finder', 'uses' => 'MovimientosController@finder']);
 
