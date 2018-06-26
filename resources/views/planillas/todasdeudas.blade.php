@@ -44,7 +44,15 @@ use App\Movimiento;
 														$haber=Movimiento::where('cuentas_id', $cuenta->id)->sum('haber');
 														$saldo = $haber - $debe;
 													 ?>
-													<td><div align="right">{{ number_format($saldo, 2, '.', '') }}</div></td>
+													<td><div align="right">
+														@if ($saldo < 0 )
+															<div class="btn-danger">
+														@else
+															<div class="btn-success">
+														@endif
+														{{ number_format($saldo, 2, '.', '') }}
+														</div>
+													</div></td>
 												</tr>
 												@endforeach
 										</tbody>
