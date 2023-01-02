@@ -46,12 +46,23 @@
 												</div>
 										</div>
 
+										<div class="form-group">
+											<label for="input-text" class="col-sm-2 control-label">Cuenta asociada</label>
+											<div class="col-sm-10">
+												{{ Form::text('cuenta', '', array('id' => 'cuenta', 'name' => 'cuenta', 'class' => 'form-control input-lg', 'placeholder' => 'Ingrese una cuenta')) }}
+												{{ Form::hidden('cuentas_id', 0, array('id' => 'cuentas_id', 'name' => 'cuentas_id')) }}
+											</div>
+										</div>
+				
+
 										</div>
 										<div class="widget-content padding">
 											<div class="form-group">
 												{{ Form::submit('Agregar', array('class' => 'btn btn-primary')) }}
 											</div>
 										</div>
+
+
 
 										{{ Form::close() }}
 								</div>
@@ -63,5 +74,19 @@
 
 				</div>
 
+
+				<script>
+					var jq = jQuery.noConflict();
+					jq(document).ready( function(){
+						$("#cuenta").autocomplete({
+							source: "/cuentas/search",
+							select: function( event, ui ) {
+								$('#cuentas_id').val( ui.item.id );
+				
+							}
+						});
+					});
+					</script>
+				
 
 @stop
