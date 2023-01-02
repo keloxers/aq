@@ -17,7 +17,7 @@
 						<a href="#" class="widget-close"><i class="icon-cancel-3"></i></a>
 					</div>
 				</div>
-				@if(count(session('errors')) > 0)
+				{{-- @if(count(session('errors')) > 0)
 				<div class="alert alert-danger">
 					<ul>
 						@foreach (session('errors') as $error)
@@ -25,7 +25,7 @@
 						@endforeach
 					</ul>
 				</div>
-				@endif
+				@endif --}}
 
 				<div class="widget-content">
 					<div class="widget-content padding">
