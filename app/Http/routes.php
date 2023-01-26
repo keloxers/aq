@@ -37,6 +37,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post( '/agentes/storeagentesjuegos', array('as' => 'agentes.storeagentesjuegos', 'uses' => 'AgentesController@storeagentesjuegos'));
     Route::get( '/agentes/agentesjuegos/delete/{id}', array('as' => 'agentes.createjuegosdestroy', 'uses' => 'AgentesController@createjuegosdestroy'));
 
+    Route::get( '/agentes/agentesjuegos/changestatus/{id}', array('as' => 'agentes.changestatus', 'uses' => 'AgentesController@changestatus'));
+    
+
     Route::resource('agentes', 'AgentesController');
 
     Route::post('/juegos/finder', [ 'as' => 'juegos.finder', 'uses' => 'JuegosController@finder']);
@@ -49,6 +52,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get( '/rendicions/{id}/cerrar', array('as' => 'rendicions.cerrar', 'uses' => 'RendicionsController@cerrar'));
     Route::get( '/rendicions/{id}/cerrada', array('as' => 'rendicions.cerrada', 'uses' => 'RendicionsController@cerrada'));
     Route::get( '/rendicions/{id}/controlada', array('as' => 'rendicions.controlada', 'uses' => 'RendicionsController@controlada'));
+    Route::get( '/rendicions/{id}/saldoaefectivo', array('as' => 'rendicions.saldoaefectivo', 'uses' => 'RendicionsController@saldoaefectivo'));
+    
     Route::resource('rendicions', 'RendicionsController');
 
     Route::get( '/detalles/{id}/detalles', array('as' => 'detalles.detalles', 'uses' => 'DetallesController@detalles'));

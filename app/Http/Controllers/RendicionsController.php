@@ -54,6 +54,9 @@ class RendicionsController extends Controller
 
         $validator = Validator::make($request->all(), [
                     'agente' => 'required|exists:agentes,agente|max:75',
+                    'periodo' => 'required|numeric|min:1|max:99999999',
+                    'tj' => 'required|numeric|min:0|max:200',
+                    
 
         ]);
 
@@ -75,6 +78,8 @@ class RendicionsController extends Controller
         $rendicion->users_id = Auth::user()->id;
         $rendicion->agentes_id = $agente->id;
         $rendicion->fecha = Carbon::parse($request->fecha)->format('Y/m/d');
+        $rendicion->periodo = $request->periodo;
+        $rendicion->tj = $request->tj;
         $rendicion->save();
         return redirect('/rendicions');
     }
@@ -103,12 +108,10 @@ class RendicionsController extends Controller
     {
         //
         $rendicion = rendicion::find($id);
-        $ciudad = Ciudad::find($rendicion->ciudads_id);
 
         $title = "Editar rendicion";
         return view('rendicions.edit', [
             'rendicion' => $rendicion,
-            'ciudad' => $ciudad,
             'title' => $title
           ]);
 
@@ -124,31 +127,43 @@ class RendicionsController extends Controller
     public function update(Request $request, $id)
     {
 
-      $validator = Validator::make($request->all(), [
-                  'rendicion' => 'required|unique:rendicions,id,'. $request->id . '|max:75',
-                  'ciudad' => 'required|exists:ciudads,ciudad'
 
-      ]);
+        
+        $validator = Validator::make($request->all(), [
+                    'agente' => 'required|exists:agentes,agente|max:75',
+                    'periodo' => 'required|numeric|min:1|max:99999999',
+                    'tj' => 'required|numeric|min:0|max:200',
+                    
+
+        ]);
 
 
-      if ($validator->fails()) {
-        foreach($validator->messages()->getMessages() as $field_name => $messages) {
-          foreach($messages AS $message) {
-              $errors[] = $message;
+        if ($validator->fails()) {
+          foreach($validator->messages()->getMessages() as $field_name => $messages) {
+            foreach($messages AS $message) {
+                $errors[] = $message;
+            }
           }
+          return redirect()->back()->with('errors', $errors)->withInput();
+          die;
         }
-        return redirect()->back()->with('errors', $errors)->withInput();
-        die;
-      }
 
+        
 
-        // $ciudad = Ciudad::where('ciudad', $request->ciudad)->first();
+        $agente = Agente::where('agente', $request->agente)->first();
 
-
-        //
         $rendicion = Rendicion::find($id);
-        $rendicion->rendicion = $request->rendicion;
-        $rendicion->ciudads_id = $ciudad->id;
+
+        if ($rendicion->estado<>'abierta') {
+          $errors[] = 'No se puede modificar una rendicion que no este abierta!';
+          return redirect()->back()->with('errors', $errors)->withInput();
+        }
+
+        $rendicion->users_id = Auth::user()->id;
+        $rendicion->agentes_id = $agente->id;
+        $rendicion->fecha = Carbon::parse($request->fecha)->format('Y/m/d');
+        $rendicion->periodo = $request->periodo;
+        $rendicion->tj = $request->tj;
         $rendicion->save();
         return redirect('/rendicions');
     }
@@ -238,8 +253,9 @@ class RendicionsController extends Controller
 
          $rendicion = Rendicion::find($request->rendicions_id);
          $rendicion->importe_efectivo = $request->importe_efectivo;
-         $rendicion->importe_premios = $request->importe_premios;
-         $rendicion->importe_saldo = $rendicion->importe_pagar - $rendicion->importe_efectivo - $rendicion->importe_premios;
+         $rendicion->importe_premios_quiniela = $request->importe_premios_quiniela;
+         $rendicion->importe_premios_juegos = $request->importe_premios_juegos;         
+         $rendicion->importe_saldo = $rendicion->importe_pagar - $rendicion->importe_efectivo - $rendicion->importe_premios_quiniela - $rendicion->importe_premios_juegos   ;
          $rendicion->save();
          return redirect('/detalles/' . $request->rendicions_id . '/detalles');
 
@@ -305,6 +321,20 @@ class RendicionsController extends Controller
          $rendicion->save();
          return redirect('/rendicions');
      }
+
+
+     public function saldoaefectivo($id)
+     {
+         $rendicion = Rendicion::find($id);
+         $importe_saldo = $rendicion->importe_saldo;
+         $rendicion->importe_saldo = 0;
+         $rendicion->importe_efectivo += $importe_saldo;
+         $rendicion->save();
+         return redirect('/detalles/' . $id . '/detalles');
+     }
+
+     
+
 
 
 

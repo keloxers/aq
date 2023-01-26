@@ -63,7 +63,7 @@ class DetallesController extends Controller
         $rendicions_id = $id;
 
         $rendicion = Rendicion::find($rendicions_id);
-        $agentesjuegos = Agentesjuego::where('agentes_id', $rendicion->agentes_id)->get();
+        $agentesjuegos = Agentesjuego::where('agentes_id', $rendicion->agentes_id)->where('activo', true)->get();
 
         $title = "Agregar detalles a la Rendicion";
         return view('detalles.create', ['rendicion' => $rendicion, 'agentesjuegos' => $agentesjuegos, 'title' => $title]);
@@ -84,7 +84,7 @@ class DetallesController extends Controller
 
         $rendicion = Rendicion::find($rendicions_id);
 
-        $agentesjuegos = Agentesjuego::where('agentes_id', $rendicion->agentes_id)->get();
+        $agentesjuegos = Agentesjuego::where('agentes_id', $rendicion->agentes_id)->where('activo', true)->get();
 
         $importe_pagar = 0;
 
@@ -108,8 +108,9 @@ class DetallesController extends Controller
                     $rendicion = Rendicion::find($request->rendicions_id);
                     $rendicion->users_id = Auth::user()->id;
                     $rendicion->importe_pagar = $importe_pagar;
-                    $rendicion->importe_premios = $request->premios;
-                    $rendicion->importe_saldo = $rendicion->importe_pagar - $rendicion->importe_efectivo - $rendicion->importe_premios;
+                    $rendicion->importe_premios_quiniela = $request->importe_premios_quiniela;
+                    $rendicion->importe_premios_juegos = $request->importe_premios_juegos;
+                    $rendicion->importe_saldo = $rendicion->importe_pagar - $rendicion->importe_efectivo - $rendicion->importe_premios_quiniela - $rendicion->importe_premios_juegos;
                     $rendicion->save();
 
 

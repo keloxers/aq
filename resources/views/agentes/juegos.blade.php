@@ -36,6 +36,7 @@
 												<th>Juego</th>
 												<th>Porcentaje Agencia</th>
 												<th>Porcentaje Agente</th>
+												<th>Estado</th>
 												<th>Acción</th>
 											</tr>
 										</thead>
@@ -47,6 +48,15 @@
 												<td>{{ $agentesjuego->juegos->juego }}</td>
 												<td>{{ $agentesjuego->porcentaje_agencia }}</td>
 												<td>{{ $agentesjuego->porcentaje_agente }}</td>
+												<td>
+													<a href='/agentes/agentesjuegos/changestatus/{{ $agentesjuego->id }}'>
+													@if ($agentesjuego->activo == 1)
+														<span class="label label-success">Activo</span>
+													@else
+														<span class="label label-danger">Inactivo</span>
+													@endif
+												</a>
+												</td>
 												<td>
 													<a href='/agentes/agentesjuegos/delete/{{ $agentesjuego->id }}'>
 													<span class="label label-danger">Eliminar</span>

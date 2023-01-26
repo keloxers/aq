@@ -253,18 +253,35 @@ class AgentesController extends Controller
          return redirect('/agentes/' . $agentesjuego->agentes_id . '/juegos');
      }
 
-     /**
-      * Remove the specified resource from storage.
-      *
-      * @param  int  $id
-      * @return \Illuminate\Http\Response
-      */
+
      public function createjuegosdestroy($id)
      {
          //
          $agentesjuego = Agentesjuego::find($id);
          $agentes_id = $agentesjuego->agentes_id;
          $agentesjuego->delete();
+
+         return redirect('/agentes/' . $agentes_id . '/juegos');
+     }
+
+
+     public function changestatus($id)
+     {
+         //
+
+         
+         $agentesjuego = Agentesjuego::find($id);
+
+         
+
+         if ($agentesjuego->activo == true) {
+            $agentesjuego->activo = false;
+         } else {
+            $agentesjuego->activo = true;
+         }
+
+         $agentes_id = $agentesjuego->agentes_id;
+         $agentesjuego->save();
 
          return redirect('/agentes/' . $agentes_id . '/juegos');
      }

@@ -35,12 +35,15 @@ use Carbon\Carbon;
 									<table data-sortable class="table table-hover table-striped">
 										<thead>
 											<tr>
+												<th></th>
 												<th>Fecha</th>
-												<th>Usuario</th>
 												<th>Agente</th>
+												<th>Tj</th>												
+												<th>Periodo</th>												
 												<th>Saldo</th>
 												<th>Estado</th>
 												<th>Acción</th>
+												<th>Cargo</th>												
 											</tr>
 										</thead>
 
@@ -48,9 +51,19 @@ use Carbon\Carbon;
 											@if ($rendicions)
 											@foreach ($rendicions as $rendicion)
 											<tr>
+												<td>
+													@if($rendicion->estado=='abierta')
+													<a href='/rendicions/{{ $rendicion->id }}/edit'>
+														<span class="label label-primary"> 
+															<icon class="fa fa-pencil"></icon> 
+														</span>
+													</a>
+													@endif
+												</td>												
 												<td>{{ Carbon::parse($rendicion->fecha)->format('d/m/Y') }}</td>
-												<td>{{ $rendicion->users->name }}</td>
 												<td>{{ $rendicion->agentes->agente }}</td>
+												<td>{{ $rendicion->tj }}</td>
+												<td>{{ $rendicion->periodo }}</td>												
 												<td>{{ $rendicion->importe_saldo }}</td>
 												<td>
 													@if($rendicion->estado=='abierta')
@@ -74,15 +87,12 @@ use Carbon\Carbon;
 													@endif
 												</td>
 												<td>
-
 													<a href='/detalles/{{ $rendicion->id }}/detalles'>
-														@if($rendicion->estado=='abierta')
-														<span class="label label-primary">Editar</span>
-														@else
-														<span class="label label-primary">Ver</span>
-														@endif
+														<span class="label label-primary"> Detalles </span>
+														
 													</a>
 												</td>
+												<td>{{ $rendicion->users->name }}</td>
 											</tr>
 											@endforeach
 										</tbody>
