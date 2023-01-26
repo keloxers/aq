@@ -39,7 +39,6 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::get( '/agentes/agentesjuegos/changestatus/{id}', array('as' => 'agentes.changestatus', 'uses' => 'AgentesController@changestatus'));
     
-
     Route::resource('agentes', 'AgentesController');
 
     Route::post('/juegos/finder', [ 'as' => 'juegos.finder', 'uses' => 'JuegosController@finder']);
@@ -53,6 +52,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get( '/rendicions/{id}/cerrada', array('as' => 'rendicions.cerrada', 'uses' => 'RendicionsController@cerrada'));
     Route::get( '/rendicions/{id}/controlada', array('as' => 'rendicions.controlada', 'uses' => 'RendicionsController@controlada'));
     Route::get( '/rendicions/{id}/saldoaefectivo', array('as' => 'rendicions.saldoaefectivo', 'uses' => 'RendicionsController@saldoaefectivo'));
+    Route::post('/rendicions/filtrar', [ 'as' => 'rendicions.filtrar', 'uses' => 'RendicionsController@filtrar']);
     
     Route::resource('rendicions', 'RendicionsController');
 

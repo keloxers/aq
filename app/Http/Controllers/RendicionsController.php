@@ -27,8 +27,9 @@ class RendicionsController extends Controller
         //
 
         $rendicions = Rendicion::orderby('fecha','desc')->orderby('id','desc')->paginate(50);
+        $filtro = '';
         $title = "Rendicions";
-        return view('rendicions.index', ['rendicions' => $rendicions, 'title' => $title ]);
+        return view('rendicions.index', ['rendicions' => $rendicions, 'filtro' => $filtro, 'title' => $title ]);
     }
 
     /**
@@ -333,9 +334,27 @@ class RendicionsController extends Controller
          return redirect('/detalles/' . $id . '/detalles');
      }
 
-     
+      
+ 
+     public function filtrar(Request $request){
+          $term = $request->term;
+          $agentes_id = $request->agentes_id;
 
+          $agente = Agente::find($agentes_id);
 
+          if (!$agente) {
+            return redirect('/rendicions');
+          }
+
+          $rendicions = Rendicion::where('agentes_id', $agentes_id)->orderby('id', 'desc')->paginate(100);
+          $filtro = $agente->agente;
+
+          $title = "Rendicions";
+          
+          return view('rendicions.index', ['rendicions' => $rendicions, 'title' => $title ]);
+
+      }
+ 
 
 
 }
