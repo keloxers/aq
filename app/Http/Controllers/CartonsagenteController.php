@@ -31,7 +31,7 @@ class CartonsagenteController extends Controller
     {
         //
 
-        $cartonsagentes = Cartonsagente::orderby('id', 'desc')->paginate(25);
+        $cartonsagentes = Cartonsagente::orderby('id', 'desc')->paginate(50);
         $title = "Cartones agentes";
         return view('cartonsagentes.index', ['cartonsagentes' => $cartonsagentes, 'title' => $title ]);
     }
