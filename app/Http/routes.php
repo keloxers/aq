@@ -43,7 +43,16 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('/juegos/finder', [ 'as' => 'juegos.finder', 'uses' => 'JuegosController@finder']);
     Route::get( '/juegos/search', array('as' => 'juegos.search', 'uses' => 'JuegosController@search'));
+    Route::get( '/juegos/searchcartones', array('as' => 'juegos.searchcartones', 'uses' => 'JuegosController@searchcartones'));
+    
     Route::resource('juegos', 'JuegosController');
+
+    Route::post('/cartonsagentes/finder', [ 'as' => 'cartonsagentes.finder', 'uses' => 'CartonsagenteController@finder']);
+    Route::get( '/cartonsagentes/search', array('as' => 'cartonsagentes.search', 'uses' => 'CartonsagenteController@search'));
+    Route::get( '/cartonsagentes/{id}/pago', array('as' => 'cartonsagentes.pago', 'uses' => 'CartonsagenteController@pago'));
+    
+    Route::resource('cartonsagentes', 'CartonsagenteController');    
+    
 
     Route::post('/rendicions/finder', [ 'as' => 'rendicions.finder', 'uses' => 'RendicionsController@finder']);
     Route::get( '/rendicions/search', array('as' => 'rendicions.search', 'uses' => 'RendicionsController@search'));
@@ -82,16 +91,6 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::resource('movimientos', 'MovimientosController');
 
-
-
-    // Route::post('/comprasdetalles/finder', [ 'as' => 'comprasdetalles.finder', 'uses' => 'ComprasdetallesController@finder']);
-    // Route::get('/comprasdetalles/{id}', [ 'as' => 'comprasdetalles.index', 'uses' => 'ComprasdetallesController@index']);
-    // Route::get('/comprasdetalles/{id}/create', [ 'as' => 'comprasdetalles.create', 'uses' => 'ComprasdetallesController@create']);
-    // Route::post('/comprasdetalles/store', [ 'as' => 'comprasdetalles.store', 'uses' => 'ComprasdetallesController@store']);
-    // Route::get('/comprasdetalles/{id}/edit', [ 'as' => 'comprasdetalles.edit', 'uses' => 'ComprasdetallesController@edit']);
-    // Route::put('/comprasdetalles/{id}', [ 'as' => 'comprasdetalles.update', 'uses' => 'ComprasdetallesController@update']);
-    // Route::get('/comprasdetalles/{id}/show', [ 'as' => 'comprasdetalles.show', 'uses' => 'ComprasdetallesController@show']);
-    // Route::delete('/comprasdetalles/{id}', [ 'as' => 'comprasdetalles.destroy', 'uses' => 'ComprasdetallesController@destroy']);
 
 
 });

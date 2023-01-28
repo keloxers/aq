@@ -17,11 +17,20 @@
 
                     <div class="data-table-toolbar">
                         <div class="row">
-                            <div class="col-md-12">
-                                <h3>{{ Carbon::parse($rendicion->fecha)->format('d/m/Y') }} :
-                                    {{ $rendicion->agentes->agente }}</h3>
+                            <div class="col-md-3">
+                                <h3>{{ Carbon::parse($rendicion->fecha)->format('d/m/Y') }}</h3>
                             </div>
+                            <div class="col-md-3">
+                                <h3><strong>{{ $rendicion->agentes->agente }}</strong></h3>
+                            </div>
+                            <div class="col-md-3">
+                                <h3>TJ: {{ $rendicion->tj }}</h3>
+                            </div>                                                        
+                            <div class="col-md-3">
+                                <h3>Periodo: {{ $rendicion->periodo }}</h3>
+                            </div>                                                                                    
                         </div>
+                        <br>
                     </div>
 
                     @if ($rendicion->estado == 'abierta')
@@ -54,9 +63,9 @@
                             <thead>
                                 <tr>
                                     <th>Juego</th>
-                                    <th>Recaudacion</th>
-                                    <th>a Pagar</th>
-                                    <th>Cargo</th>
+                                    <th><div align='right'>Recaudacion</div></th>
+                                    <th><div align='right'>a Pagar</div></th>
+                                    <th><div align='right'>Usuario</div></th>
                                 </tr>
                             </thead>
 
@@ -71,9 +80,9 @@
                                     @foreach ($detalles as $detalle)
                                         <tr>
                                             <td>{{ $detalle->agentesjuegos->juegos->juego }}</td>
-                                            <td>{{ $detalle->recaudacion }}</td>
-                                            <td>{{ $detalle->importe_apagar }}</td>
-                                            <td>{{ $detalle->users->name }}</td>
+                                            <td><div align='right'>{{ $detalle->recaudacion }}</div></td>
+                                            <td><div align='right'>{{ $detalle->importe_apagar }}</div></td>
+                                            <td><div align='right'>{{ $detalle->users->name }}</div></td>
                                         </tr>
                                         <?php
                                         $apagar += $detalle->importe_apagar;
@@ -92,17 +101,17 @@
                     <div class="data-table-toolbar">
                         <div class="row">
                             <div class="col-md-4">
-                                <h3><b>Total TJ: $</b> {{ number_format($totalTj, 2, '.', '') }}
+                                <h3><b>Total TJ: $</b> {{ number_format($totalTj, 2, ',', '.') }}
                                 </h3>
                             </div>
                             <div class="col-md-4">
                                 <h3><b>Premios: $</b>
-                                    {{ number_format($rendicion->importe_premios_quiniela + $rendicion->importe_premios_juegos, 2) }}
+                                    {{ number_format($rendicion->importe_premios_quiniela + $rendicion->importe_premios_juegos, 2, ',', '.') }}
                                 </h3>
                             </div>
                             <div class="col-md-4">
-                                {{-- <h3><b>Ganancia Agente: $</b> {{ number_format($totalAgente, 2, '.', '') }}</h3> --}}
-                                <h3><b>Efectivo: $</b> {{ $rendicion->importe_efectivo }}
+
+                                <h3><b>Efectivo: $</b> {{ number_format($rendicion->importe_efectivo, 2, ',', '.') }}
                             </div>
 
                         </div>
@@ -110,25 +119,22 @@
 
                     <div class="data-table-toolbar">
                         <div class="row">
-                            <div class="col-md-3">
-                                <h3><b>A Pagar: $</b> {{ number_format($apagar, 2, '.', '') }}
+                            <div class="col-md-4">
+                                <h3><b>A Pagar: $</b> {{ number_format($apagar, 2, ',', '.') }}
                                 </h3>
                             </div>
-                            <div class="col-md-3">
-
-                                </h3>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-5">
+                                <h3><b>Ganancia Agente: $</b> {{ number_format($totalAgente, 2, ',', '.') }}</h3>
 
                             </div>
                             <div class="col-md-3">
                                 <h3><b>Saldo:</b>
                                     @if ($rendicion->importe_saldo <= 0)
-                                        <span class="label label-success">{{ $rendicion->importe_saldo }}</span>
+                                        <span class="label label-success">{{ number_format($rendicion->importe_saldo, 2, ',', '.') }}</span>
                                     @else
-                                        <span class="label label-danger">{{ $rendicion->importe_saldo }}</span>
-                                        <a href="/rendicions/{{ $rendicion->id }}/saldoaefectivo" class="btn btn-success"><i
-                                                class="fa fa-check"></i></a>
+                                        <span class="label label-danger">{{ number_format($rendicion->importe_saldo, 2, ',', '.') }}</span>
+                                        <a href="/rendicions/{{ $rendicion->id }}/saldoaefectivo"
+                                            class="btn btn-success"><i class="fa fa-check"></i></a>
 
                                         </a>
                                     @endif

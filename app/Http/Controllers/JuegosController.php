@@ -192,7 +192,30 @@ class JuegosController extends Controller
 
 
 
+     public function searchcartones(Request $request){
+      $term = $request->term;
+      $datos = Juego::where('juego', 'like', '%'. $request->term . '%')->where('tj', false)->get();
+      $adevol = array();
+      if (count($datos) > 0) {
+          foreach ($datos as $dato)
+              {
+                  $adevol[] = array(
+                      'id' => $dato->id,
+                      'value' => $dato->juego,
+                  );
+          }
+      } else {
+                  $adevol[] = array(
+                      'id' => 0,
+                      'value' => 'no hay coincidencias para ' .  $term
+                  );
+      }
+       return json_encode($adevol);
+  }
 
+
+
+     
 
 
 

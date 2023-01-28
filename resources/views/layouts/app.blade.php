@@ -172,12 +172,18 @@
                                 <span class="pull-right">
                                 </a>
                             </li>
-                            <li><a href='/rendicions'>
-                              <i class='fa fa-money'></i>
-                                <span>Rendicion</span>
+                            <li><a href='/cartonsagentes'>
+                              <i class='fa fa-bullseye'></i>
+                                <span>Cartones Agentes</span>
                                 <span class="pull-right">
                                 </a>
                             </li>
+                            <li><a href='/rendicions'>
+                                <i class='fa fa-money'></i>
+                                  <span>Rendicion</span>
+                                  <span class="pull-right">
+                                  </a>
+                              </li>                            
                             <li><a href='/planillas'>
                               <i class='glyphicon glyphicon-list-alt'></i>
                                 <span>Planillas</span>
