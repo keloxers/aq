@@ -40,16 +40,16 @@ class MovimientosController extends Controller
         return view('movimientos.create', ['title' => $title]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
+    
     public function store(Request $request)
     {
 
-        $enplanilla=1;
+      $enplanilla=1;
+      if($request->enplanilla=="") {
+        $enplanilla=0;
+      };
+
 
         if (Auth::user()->enplanilla) {
           if($request->enplanilla=="") {
