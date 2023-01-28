@@ -78,7 +78,7 @@
                                             <td>{{ $rendicion->importe_saldo }}</td>
                                             <td>
                                                 @if ($rendicion->estado == 'abierta')
-                                                    <span class="label label-success">{{ $rendicion->estado }}</span>
+                                                    <span class="label label-warning">{{ $rendicion->estado }}</span>
                                                 @elseif ($rendicion->estado == 'cerrada')
                                                     @if (Auth::user()->tipo >= 2)
                                                         <a href='/rendicions/{{ $rendicion->id }}/controlada'>
