@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/cartonsagentes/finder', [ 'as' => 'cartonsagentes.finder', 'uses' => 'CartonsagenteController@finder']);
     Route::get( '/cartonsagentes/search', array('as' => 'cartonsagentes.search', 'uses' => 'CartonsagenteController@search'));
     Route::get( '/cartonsagentes/{id}/pago', array('as' => 'cartonsagentes.pago', 'uses' => 'CartonsagenteController@pago'));
-    
+    Route::get( '/cartonsagentes/confirmarpago/{id}', [ 'as' => 'cartonsagentes.confirmarpago', 'uses' => 'CartonsagenteController@confirmarpago']);
     Route::resource('cartonsagentes', 'CartonsagenteController');    
     
 

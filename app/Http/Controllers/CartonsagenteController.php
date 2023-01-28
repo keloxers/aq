@@ -11,6 +11,11 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Auth;
 use App\Agentesjuego;
+use App\Cuenta;
+use App\Juego;
+
+use App\Agente;
+use App\Movimiento;
 
 use Validator;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -86,6 +91,14 @@ class CartonsagenteController extends Controller
           die;
         }
 
+        $juego = Juego::find($request->juegos_id);
+
+        if ($juego == null) {
+          $errors[] = "El juego no es válido";
+          return redirect()->back()->with('errors', $errors)->withInput();
+          die;
+        }        
+
 
         $porcentaje_agencia = $agentesjuego->porcentaje_agencia;
         $porcentaje_agente = $agentesjuego->porcentaje_agente;
@@ -107,6 +120,39 @@ class CartonsagenteController extends Controller
         $cartonsagente->comision_agente = $comision_agente;
         $cartonsagente->importe_apagar = $cartonsagente->importe_entregado - $comision_agente;
         $cartonsagente->users_id = Auth::user()->id;
+        $cartonsagente->save();
+
+
+
+
+        $agente = Agente::find($request->agentes_id);
+
+        if ($agente == null) {
+          $errors[] = "El agente no existe";
+          return redirect()->back()->with('errors', $errors)->withInput();
+          die;
+        }
+
+        
+        $cuenta = Cuenta::find($agente->cuentas_id);
+
+        if ($cuenta == null) {
+          $errors[] = "La cuenta no existe";
+          return redirect()->back()->with('errors', $errors)->withInput();
+          die;
+        }
+
+
+        $movimiento = new Movimiento;
+        $movimiento->users_id = Auth::user()->id;
+        $movimiento->cuentas_id = $cuenta->id;
+        $movimiento->movimiento = "Entrega de cartones " . $juego->juego . " (" . $request->cantidad . " cartones)";
+        $movimiento->debe = $cartonsagente->importe_apagar;
+        $movimiento->haber = 0;
+        $movimiento->enplanilla = false;
+        $movimiento->save();        
+
+        $cartonsagente->movimientos_id = $movimiento->id;
         $cartonsagente->save();
 
         return redirect('/cartonsagentes');
@@ -225,6 +271,44 @@ class CartonsagenteController extends Controller
         $cartonsagente->save();
 
 
+
+        $agente = Agente::find($cartonsagente->agentes_id);
+
+        if ($agente == null) {
+          $errors[] = "El agente no existe";
+          return redirect()->back()->with('errors', $errors)->withInput();
+          die;
+        }
+
+
+        $cuenta = Cuenta::find($agente->cuentas_id);
+
+        if ($cuenta == null) {
+          $errors[] = "La cuenta no existe";
+          return redirect()->back()->with('errors', $errors)->withInput();
+          die;
+        }
+         
+        $juego = Juego::find($cartonsagente->juegos_id);
+
+        if ($juego == null) {
+          $errors[] = "El juego no es válido";
+          return redirect()->back()->with('errors', $errors)->withInput();
+          die;
+        }        
+
+
+
+        $movimiento = Movimiento::find($cartonsagente->movimientos_id);
+        $movimiento->users_id = Auth::user()->id;
+        $movimiento->cuentas_id = $cuenta->id;
+        $movimiento->movimiento = "Entrega de cartones " . $juego->juego . " (" . $request->cantidad . " cartones)";
+        $movimiento->debe = $cartonsagente->importe_apagar;
+        $movimiento->haber = 0;
+        $movimiento->enplanilla = false;
+        $movimiento->save();        
+
+
         return redirect('/cartonsagentes');
     }
 
@@ -283,9 +367,20 @@ class CartonsagenteController extends Controller
      }
 
 
-
-
      public function pago($id)
+     {
+         
+ 
+         $cartonsagente = Cartonsagente::find($id);
+         $title = "Confirmar pago:  " . $cartonsagente->agentes->agente;
+         return view('cartonsagentes.confirmarpago', ['cartonsagente' => $cartonsagente, 'title' => $title ]);
+ 
+ 
+     }
+ 
+
+
+     public function confirmarpago($id)
      {
        
       $cartonsagente = Cartonsagente::find($id);
@@ -298,6 +393,46 @@ class CartonsagenteController extends Controller
 
       $cartonsagente->estado = 'pagado';
       $cartonsagente->save();
+
+
+
+      $agente = Agente::find($cartonsagente->agentes_id);
+
+      if ($agente == null) {
+        $errors[] = "El agente no existe";
+        return redirect()->back()->with('errors', $errors)->withInput();
+        die;
+      }
+
+      
+      $cuenta = Cuenta::find($agente->cuentas_id);
+
+      if ($cuenta == null) {
+        $errors[] = "La cuenta no existe";
+        return redirect()->back()->with('errors', $errors)->withInput();
+        die;
+      }
+
+      $juego = Juego::find($cartonsagente->juegos_id);
+
+      if ($juego == null) {
+        $errors[] = "El juego no es válido";
+        return redirect()->back()->with('errors', $errors)->withInput();
+        die;
+      }        
+
+
+
+      $movimiento = new Movimiento;
+      $movimiento->users_id = Auth::user()->id;
+      $movimiento->cuentas_id = $cuenta->id;
+      $movimiento->movimiento = "Pago de cartones " . $juego->juego . " (" . $cartonsagente->cantidad . " cartones)";
+      $movimiento->debe = 0;
+      $movimiento->haber = $cartonsagente->importe_apagar;
+      $movimiento->enplanilla = true;
+      $movimiento->save();        
+
+
 
       return redirect('/cartonsagentes');
       

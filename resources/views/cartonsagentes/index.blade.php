@@ -73,7 +73,7 @@
 													
 														@if ($cartonsagente->estado == 'entregado')
 															<a href='/cartonsagentes/{{ $cartonsagente->id }}/pago'>
-																<span class="label label-danger">{{ $cartonsagente->estado }}</span>
+																<span class="label label-danger">{{ $cartonsagente->estado }} Pagar y registrar</span>
 															</a>
 														@elseif ($cartonsagente->estado == 'pagado')
 															<span class="label label-success">{{ $cartonsagente->estado }}</span>

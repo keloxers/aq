@@ -98,9 +98,17 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                
                                                 <a href='/detalles/{{ $rendicion->id }}/detalles'>
-                                                    <span class="label label-primary"> Detalles </span>
-
+                                                    
+                                                        @if ($rendicion->estado == 'abierta')
+                                                        <span class="label label-info">
+                                                            Editar
+                                                        @else
+                                                            <span class="label label-success">
+                                                            Ver
+                                                        @endif
+                                                    </span>
                                                 </a>
                                             </td>
                                             <td>{{ $rendicion->users->name }}</td>
